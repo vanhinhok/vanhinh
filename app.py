@@ -48,7 +48,6 @@ def init_db():
         )
     ''')
     
-    # ĐÃ XÓA max_devices, used_devices, ip_logs
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS keys (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -61,7 +60,6 @@ def init_db():
         )
     ''')
     
-    # Cập nhật cấu trúc bảng nếu nâng cấp từ DB cũ
     try:
         cursor.execute("ALTER TABLE keys ADD COLUMN usage_limit INTEGER DEFAULT 1")
     except sqlite3.OperationalError:
@@ -85,9 +83,9 @@ def init_db():
 
     conn.commit()
 
-    super_admin = cursor.execute("SELECT * FROM admin_users WHERE username = ?", ("vanhinhdz",)).fetchone()
+    super_admin = cursor.execute("SELECT * FROM admin_users WHERE username = ?", ("vanhinh291211",)).fetchone()
     if not super_admin:
-        hashed_pw = generate_password_hash("vanhinh@213")
+        hashed_pw = generate_password_hash("hinh@29122011@")
         cursor.execute("INSERT INTO admin_users (username, password, plain_password, is_super) VALUES (?, ?, ?, ?)",
                        ("vanhinh291211", hashed_pw, "hinh@29122011@", 1))
         conn.commit()
@@ -327,7 +325,6 @@ HTML_DASHBOARD = """
         {% if msg %}<div class="alert alert-success" data-msg-key="{{ msg }}"></div>{% endif %}
         {% if err %}<div class="alert alert-danger" data-msg-key="{{ err }}"></div>{% endif %}
 
-        <!-- Create Key -->
         <div class="card">
             <h3 class="neon-pink" data-i18n="createKeyTitle">TẠO KEY MỚI</h3>
             <form action="/create-key" method="POST">
@@ -347,7 +344,6 @@ HTML_DASHBOARD = """
             </form>
         </div>
 
-        <!-- Key List -->
         <div class="card">
             <h3 class="neon-title" data-i18n="keyListTitle">DANH SÁCH KEY</h3>
             <div class="table-responsive">
@@ -393,7 +389,6 @@ HTML_DASHBOARD = """
             </div>
         </div>
 
-        <!-- Admin Management -->
         {% if is_super_admin %}
         <div class="card">
             <h3 class="neon-purple" data-i18n="adminMgmtTitle">QUẢN LÝ ADMIN & TRẠNG THÁI</h3>
