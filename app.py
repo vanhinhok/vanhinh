@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = "super_secret_key_change_me_in_production"
 app.permanent_session_lifetime = datetime.timedelta(days=30)
 
-DATABASE = "key_system.db"
+DATABASE = "key_system_v2.db"
 
 # ==================== CẤU HÌNH MÚI GIỜ VIỆT NAM (UTC+7) ====================
 VN_TZ = datetime.timezone(datetime.timedelta(hours=7))
